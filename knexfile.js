@@ -13,6 +13,7 @@ const sharedConfig = {
       conn.run('PRAGMA foreign_keys = ON', done)
     },
   },
+  useNullAsDefault: true,
 }
 
 module.exports = {
