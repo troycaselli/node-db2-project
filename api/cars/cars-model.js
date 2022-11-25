@@ -4,12 +4,13 @@ const getAll = () => {
   return db('cars')
 }
 
-const getById = () => {
-  // DO YOUR MAGIC
+const getById = (id) => {
+  return db('cars').where({id})
 }
 
-const create = () => {
-  // DO YOUR MAGIC
+const create = async (newCar) => {
+  const id = await db('cars').insert(newCar)
+  return getById(id)
 }
 
 module.exports = {
