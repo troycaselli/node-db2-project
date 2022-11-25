@@ -1,5 +1,11 @@
 const express = require('express');
 const Cars = require('./cars-model');
+const {
+    checkCarId,
+    checkCarPayload,
+    checkVinNumberValid,
+    checkVinNumberUnique
+  } = require('./cars-middleware');
 
 const router = express.Router();
 
@@ -8,9 +14,8 @@ router.get('/', async (req, res) => {
     res.status(200).json(result);
 })
 
-router.get('/:id', async (req, res) => {
-    const result = await Cars.getById(req.params.id)
-    res.status(200).json(result);
+router.get('/:id', checkCarId, (req, res) => {
+    res.status(200).json(req.car);
 })
 
 router.post('/', async (req, res) => {
