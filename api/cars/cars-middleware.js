@@ -19,8 +19,18 @@ const checkCarId = async (req, res, next) => {
   }
 }
 
-const checkCarPayload = async (req, res, next) => {
-  // DO YOUR MAGIC
+const checkCarPayload = (req, res, next) => {
+  const {vin, make, model, mileage} = req.body;
+  let missing = ''
+  if(!vin) missing = 'vin'
+  if(!make) missing = 'make'
+  if(!model) missing = 'model'
+  if(!mileage) missing = 'mileage'
+  if(missing) {
+    next({status: 400, message: `${missing} is missing`})
+  } else {
+    next();
+  }
 }
 
 const checkVinNumberValid = async (req, res, next) => {
