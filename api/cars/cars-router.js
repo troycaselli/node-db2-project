@@ -9,9 +9,13 @@ const {
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-    const result = await Cars.getAll();
-    res.status(200).json(result);
+router.get('/', async (req, res, next) => {
+    try {
+        const result = await Cars.getAll();
+        res.status(200).json(result);
+    } catch(err) {
+        next(err);
+    }
 })
 
 router.get('/:id', checkCarId, (req, res) => {
@@ -23,7 +27,7 @@ router.post(
     checkCarPayload,
     checkVinNumberValid, 
     checkVinNumberUnique, 
-    async (req, res) => {
+    async (req, res, next) => {
         try {
             const [result] = await Cars.create(req.body);
             res.status(201).json(result);
