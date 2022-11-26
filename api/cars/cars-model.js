@@ -8,6 +8,10 @@ const getById = (id) => {
   return db('cars').where({id})
 }
 
+const getByVin = (vin) => {
+  return db('cars').where({vin}).first()
+}
+
 const create = async (newCar) => {
   const id = await db('cars').insert(newCar)
   return getById(id)
@@ -16,5 +20,6 @@ const create = async (newCar) => {
 module.exports = {
   getAll,
   getById,
+  getByVin,
   create
 };

@@ -11,8 +11,8 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
     try {
-        const result = await Cars.getAll();
-        res.status(200).json(result);
+        const cars = await Cars.getAll();
+        res.status(200).json(cars);
     } catch(err) {
         next(err);
     }
@@ -29,8 +29,8 @@ router.post(
     checkVinNumberUnique, 
     async (req, res, next) => {
         try {
-            const [result] = await Cars.create(req.body);
-            res.status(201).json(result);
+            const [newCar] = await Cars.create(req.body);
+            res.status(201).json(newCar);
         } catch(err) {
             next(err);
         }
